@@ -185,7 +185,7 @@ function setupTargetCalendar(targetCalendarName){
     Logger.log("Creating Calendar: " + targetCalendarName);
     targetCalendar = Calendar.newCalendar();
     targetCalendar.summary = targetCalendarName;
-    targetCalendar.description = "Created by GAS";
+    //targetCalendar.description = "";
     targetCalendar.timeZone = Calendar.Settings.get("timezone").value;
     targetCalendar = Calendar.Calendars.insert(targetCalendar);
   }
@@ -408,7 +408,8 @@ function createEvent(event, calendarTz){
       newEvent.status = status;
   }
 
-  if (event.hasProperty('url') && event.getFirstPropertyValue('url').toString().substring(0,4) == 'http'){
+  if (event.hasProperty('url') && event.getFirstPropertyValue('url').toString().substring(0,4) == 'http' 
+      && event.getFirstPropertyValue('url').toString() != 'https://www.firemanager.de'){
     newEvent.source = callWithBackoff(function() {
           return Calendar.newEventSource();
         }, defaultMaxRetries);
